@@ -16,5 +16,9 @@ qemu-system-x86_64                                           \
 -device virtio-blk-pci,drive=system                          \
 -drive if=none,id=system,file=qemu-amd64.img,id=hd0          \
 -device virtio-vga-gl                                        \
--display gtk,gl=on
+-display gtk,gl=on                                           \
+-device qemu-xhci                                            \
+-device usb-kbd                                              \
+-device usb-mouse                                            \
+-device usb-tablet
 ```
