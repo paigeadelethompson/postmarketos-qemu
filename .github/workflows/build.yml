@@ -1,0 +1,51 @@
+name: "Build PostmarketOS for QEMU-x86_64"
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    permissions:
+      contents: write
+      pull-requests: read
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        submodules: true
+    - name: Get current date
+        id: date
+        run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
+    - name: Install tools
+      run: sudo apt update ; sudo apt -y install python-is-python3 python3-pip
+    - name: Install pmbootstrap
+      run: sudo apt update ; sudo pip3 install pmbootstrap
+    - name: Create work directory
+      run: mkdir -p /home/runner/.local/var/pmbootstrap
+    - name: Update pmbootstrap
+      run: pmbootstrap -c pmbootstrap.cfg -y pull
+    - name: pmbootstrap install
+      run: pmbootstrap -c pmbootstrap.cfg -y install --fde --password postmarketos --no-sshd --filesystem btrfs
+    - name: pmbootstrap image size
+      run: pmbootstrap -c pmbootstrap.cfg -y qemu --image-size=2G
+    - name: Zip image
+      run: mkdir postmarketos-qemu-amd64 && mv /home/runner/.local/var/pmbootstrap/chroot_native/home/pmos/rootfs/qemu-amd64.img postmarketos-qemu-amd64/ && zip postmarketos-qemu-amd64.zip postmarketos-qemu-amd64/
+    - name: Create GH release
+      uses: actions/create-release@v1
+      id: create_release
+      with:
+        draft: true
+        prerelease: false
+        release_name: postmarketos-qemu-amd64
+        tag_name: ${{ steps.date.outputs.date }}
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
+    - name: Upload zipped image to release artifacts
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: postmarketos-qemu-amd64.zip
+        asset_name: postmarketos-qemu-amd64.zip
+        asset_content_type: application/zip
