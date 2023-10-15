@@ -21,7 +21,7 @@ jobs:
     - name: Install pmbootstrap
       run: sudo apt update ; sudo pip3 install pmbootstrap
     - name: Create work directory
-      run: mkdir -p /home/runner/.local/var/pmbootstrap/cache_git/pmaports
+      run: mkdir -p /home/runner/.local/var/ && cp -rvp pmbootstrap/ /home/runner/.local/var/
     - name: Update pmbootstrap
       run: pmbootstrap -c pmbootstrap.cfg -y pull
     - name: pmbootstrap install
