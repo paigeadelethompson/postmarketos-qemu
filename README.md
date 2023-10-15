@@ -17,6 +17,7 @@ qemu-system-x86_64                                              \
 -drive if=none,id=system,file=qemu-amd64.img,id=hd0,format=raw  \
 -device virtio-vga-gl                                           \
 -display gtk,gl=on                                              \
+-device usb-ehci                                                \
 -device qemu-xhci                                               \
 -device usb-kbd                                                 \
 -device usb-mouse                                               \
