@@ -27,7 +27,7 @@ jobs:
     - name: pmbootstrap install
       run: pmbootstrap -c pmbootstrap.cfg -y -p pmbootstrap/cache_git/pmaports/ install --password postmarketos --no-sshd --filesystem btrfs
     - name: Zip image
-      run: mkdir postmarketos-qemu-amd64 && sudo cp /home/runner/.local/var/pmbootstrap/chroot_native/home/pmos/rootfs/qemu-amd64.img postmarketos-qemu-amd64/ && zip postmarketos-qemu-amd64.zip postmarketos-qemu-amd64/
+      run: mkdir postmarketos-qemu-amd64 && sudo cp /home/runner/.local/var/pmbootstrap/chroot_native/home/pmos/rootfs/qemu-amd64.img postmarketos-qemu-amd64/ && zip postmarketos-qemu-amd64.zip postmarketos-qemu-amd64/*
     - name: Create GH release
       uses: actions/create-release@v1
       id: create_release
