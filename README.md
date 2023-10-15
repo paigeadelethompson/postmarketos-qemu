@@ -1,4 +1,8 @@
-# PostmarketOS for QEMU
+# PostmarketOS for QEMU 
+
+## Login
+User: `postmarketos`
+Password: `postmarketos`
 
 ## Usage
 ```
