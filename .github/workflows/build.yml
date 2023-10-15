@@ -21,13 +21,13 @@ jobs:
     - name: Install pmbootstrap
       run: sudo apt update ; sudo pip3 install pmbootstrap
     - name: Create work directory
-      run: mkdir -p /home/runner/.local/var/ && cp -rvp pmbootstrap/ /home/runner/.local/var/
+      run: mkdir -p /home/runner/.local/var/pmbootstrap
     - name: Update pmbootstrap
-      run: pmbootstrap -c pmbootstrap.cfg -y pull
+      run: pmbootstrap -c pmbootstrap.cfg -y -p pmbootstrap/cache_git/pmaports/ pull
     - name: pmbootstrap install
-      run: pmbootstrap -c pmbootstrap.cfg -y install --fde --password postmarketos --no-sshd --filesystem btrfs
+      run: pmbootstrap -c pmbootstrap.cfg -y -p pmbootstrap/cache_git/pmaports/ install --fde --password postmarketos --no-sshd --filesystem btrfs
     - name: pmbootstrap image size
-      run: pmbootstrap -c pmbootstrap.cfg -y qemu --image-size=2G
+      run: pmbootstrap -c pmbootstrap.cfg -y -p pmbootstrap/cache_git/pmaports/ qemu --image-size=2G
     - name: Zip image
       run: mkdir postmarketos-qemu-amd64 && mv /home/runner/.local/var/pmbootstrap/chroot_native/home/pmos/rootfs/qemu-amd64.img postmarketos-qemu-amd64/ && zip postmarketos-qemu-amd64.zip postmarketos-qemu-amd64/
     - name: Create GH release
