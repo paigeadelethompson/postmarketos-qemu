@@ -8,6 +8,8 @@ Password: `postmarketos`
 ```
 qemu-system-x86_64                                           \
 -M pc                                                        \
+-m 2G                                                        \
+-smp 4                                                       \
 -kernel boot/vmlinuz-edge                                    \
 -initrd boot/initramfs                                       \
 -append "console=ttyS0,115200n8 console=tty0 root=/dev/vda2" \
