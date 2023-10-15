@@ -25,7 +25,7 @@ jobs:
     - name: Update pmbootstrap
       run: pmbootstrap -c pmbootstrap.cfg -y -p pmbootstrap/cache_git/pmaports/ pull
     - name: pmbootstrap install
-      run: pmbootstrap -c pmbootstrap.cfg -y -p pmbootstrap/cache_git/pmaports/ install --fde --password postmarketos --no-sshd --filesystem btrfs
+      run: pmbootstrap -c pmbootstrap.cfg -y -p pmbootstrap/cache_git/pmaports/ install --password postmarketos --no-sshd --filesystem btrfs
     - name: pmbootstrap image size
       run: pmbootstrap -c pmbootstrap.cfg -y -p pmbootstrap/cache_git/pmaports/ qemu --image-size=2G
     - name: Zip image
