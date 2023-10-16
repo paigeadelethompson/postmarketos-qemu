@@ -37,7 +37,7 @@ jobs:
       with:
         draft: true
         prerelease: false
-        release_name: postmarketos-qemu-${{ matrix.arch }}
+        release_name: postmarketos-qemu-${{ matrix.arch }}-${{ env.stamp }}
         tag_name: ${{ env.stamp }}
       env:
         GITHUB_TOKEN: ${{ github.token }}
