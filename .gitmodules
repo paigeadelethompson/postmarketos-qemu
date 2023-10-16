@@ -1,3 +1,4 @@
 [submodule "pmbootstrap/cache_git/pmaports"]
 	path = pmbootstrap/cache_git/pmaports
 	url = https://gitlab.com/postmarketOS/pmaports.git
+        branch = master
