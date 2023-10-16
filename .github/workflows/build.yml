@@ -30,7 +30,7 @@ jobs:
     - name: pmbootstrap install
       run: pmbootstrap -c configs/pmbootstrap.${{ matrix.arch }}.cfg -y -p pmbootstrap/cache_git/pmaports/ install --password postmarketos --no-sshd --filesystem btrfs
     - name: Zip image
-      run: mkdir -p postmarketos-qemu-${{ matrix.arch }}/boot && sudo cp /home/runner/.local/var/pmbootstrap/chroot_native/home/pmos/rootfs/qemu-${{ matrix.arch }}.img postmarketos-qemu-${{ matrix.arch }}/ && cp /home/runner/.local/var/pmbootstrap/chroot_rootfs_qemu-${{ matrix.arch }}/boot/* postmarketos-qemu-${{ matrix.arch }}/boot/ && find postmarketos-qemu-${{ matrix.arch }}/ -print | zip postmarketos-qemu-${{ matrix.arch }}.${{ env.stamp }}.zip -@
+      run: mkdir -p postmarketos-qemu-${{ matrix.arch }}/boot && sudo cp -r /home/runner/.local/var/pmbootstrap/chroot_native/home/pmos/rootfs/qemu-${{ matrix.arch }}.img postmarketos-qemu-${{ matrix.arch }}/ && cp -r /home/runner/.local/var/pmbootstrap/chroot_rootfs_qemu-${{ matrix.arch }}/boot/* postmarketos-qemu-${{ matrix.arch }}/boot/ && find postmarketos-qemu-${{ matrix.arch }}/ -print | zip postmarketos-qemu-${{ matrix.arch }}.${{ env.stamp }}.zip -@
     - name: Create GH release
       uses: actions/create-release@v1
       id: create_release
