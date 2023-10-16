@@ -7,6 +7,8 @@ Password: `postmarketos`
 ## Usage
 ```
 qemu-system-x86_64                                              \
+-nodefaults                                                     \
+-nographic                                                      \
 -M pc                                                           \
 -m 2g                                                           \
 -smp 4                                                          \
