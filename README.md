@@ -24,7 +24,7 @@ qemu-system-x86_64                                              \
 -device usb-kbd                                                 \
 -device usb-mouse                                               \
 -device usb-tablet                                              \
--netdev user,id=net0,net=192.168.76.0/24,dhcpstart=192.168.76.9 \
+-netdev user,id=net0,net=169.254.0.0/16,dhcpstart=169.254.0.2   \
 -device virtio-net-pci,netdev=net0                              \
 -device ich9-intel-hda                                          \
 -device hda-micro                                               \
