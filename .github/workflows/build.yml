@@ -5,6 +5,9 @@ on:
 
 jobs:
   build:
+    strategy:
+      matrix:
+        arch: ["amd64"]
     permissions:
       contents: write
       pull-requests: read
@@ -27,14 +30,14 @@ jobs:
     - name: pmbootstrap install
       run: pmbootstrap -c pmbootstrap.cfg -y -p pmbootstrap/cache_git/pmaports/ install --password postmarketos --no-sshd --filesystem btrfs
     - name: Zip image
-      run: mkdir -p postmarketos-qemu-amd64/boot && sudo cp /home/runner/.local/var/pmbootstrap/chroot_native/home/pmos/rootfs/qemu-amd64.img postmarketos-qemu-amd64/ && cp /home/runner/.local/var/pmbootstrap/chroot_rootfs_qemu-amd64/boot/* postmarketos-qemu-amd64/boot/ && find postmarketos-qemu-amd64/ -print | zip postmarketos-qemu-amd64.${{ env.stamp }}.zip -@
+      run: mkdir -p postmarketos-qemu-${{ matrix.arch }}/boot && sudo cp /home/runner/.local/var/pmbootstrap/chroot_native/home/pmos/rootfs/qemu-${{ matrix.arch }}.img postmarketos-qemu-${{ matrix.arch }}/ && cp /home/runner/.local/var/pmbootstrap/chroot_rootfs_qemu-${{ matrix.arch }}/boot/* postmarketos-qemu-${{ matrix.arch }}/boot/ && find postmarketos-qemu-${{ matrix.arch }}/ -print | zip postmarketos-qemu-${{ matrix.arch }}.${{ env.stamp }}.zip -@
     - name: Create GH release
       uses: actions/create-release@v1
       id: create_release
       with:
         draft: true
         prerelease: false
-        release_name: postmarketos-qemu-amd64
+        release_name: postmarketos-qemu-${{ matrix.arch }}
         tag_name: ${{ env.stamp }}
       env:
         GITHUB_TOKEN: ${{ github.token }}
@@ -44,6 +47,6 @@ jobs:
         GITHUB_TOKEN: ${{ github.token }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: postmarketos-qemu-amd64.${{ env.stamp }}.zip
-        asset_name: postmarketos-qemu-amd64.${{ env.stamp }}.zip
+        asset_path: postmarketos-qemu-${{ matrix.arch }}.${{ env.stamp }}.zip
+        asset_name: postmarketos-qemu-${{ matrix.arch }}.${{ env.stamp }}.zip
         asset_content_type: application/zip
