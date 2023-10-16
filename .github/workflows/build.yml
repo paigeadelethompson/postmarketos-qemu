@@ -15,7 +15,7 @@ jobs:
         submodules: true
     - name: Get current date
       id: date
-      run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
+      run: echo "stamp={$(date +'+%s')}" >> $GITHUB_ENV
     - name: Install tools
       run: sudo apt update ; sudo apt -y install python-is-python3 python3-pip
     - name: Install pmbootstrap
@@ -27,7 +27,7 @@ jobs:
     - name: pmbootstrap install
       run: pmbootstrap -c pmbootstrap.cfg -y -p pmbootstrap/cache_git/pmaports/ install --password postmarketos --no-sshd --filesystem btrfs
     - name: Zip image
-      run: mkdir -p postmarketos-qemu-amd64/boot && sudo cp /home/runner/.local/var/pmbootstrap/chroot_native/home/pmos/rootfs/qemu-amd64.img postmarketos-qemu-amd64/ && cp /home/runner/.local/var/pmbootstrap/chroot_rootfs_qemu-amd64/boot/* postmarketos-qemu-amd64/boot/ && find postmarketos-qemu-amd64/ -print | zip postmarketos-qemu-amd64.zip -@
+      run: mkdir -p postmarketos-qemu-amd64/boot && sudo cp /home/runner/.local/var/pmbootstrap/chroot_native/home/pmos/rootfs/qemu-amd64.img postmarketos-qemu-amd64/ && cp /home/runner/.local/var/pmbootstrap/chroot_rootfs_qemu-amd64/boot/* postmarketos-qemu-amd64/boot/ && find postmarketos-qemu-amd64/ -print | zip postmarketos-qemu-amd64.${{ env.stamp }}.zip -@
     - name: Create GH release
       uses: actions/create-release@v1
       id: create_release
@@ -35,7 +35,7 @@ jobs:
         draft: true
         prerelease: false
         release_name: postmarketos-qemu-amd64
-        tag_name: ${{ steps.date.outputs.date }}
+        tag_name: ${{ env.stamp }}
       env:
         GITHUB_TOKEN: ${{ github.token }}
     - name: Upload zipped image to release artifacts
