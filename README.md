@@ -1,8 +1,7 @@
 # PostmarketOS for QEMU 
 
-## Login
-User: `postmarketos`
-Password: `postmarketos`
+## Getting started 
+Download zipfile from the releases section, extract
 
 ## Usage
 ```
@@ -30,3 +29,8 @@ qemu-system-x86_64                                              \
 -device hda-micro                                               \
 -serial mon:stdio
 ```
+
+## Login
+User: `postmarketos`
+Password: `postmarketos` this also works for the security pin.
+
