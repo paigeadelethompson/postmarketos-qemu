@@ -9,8 +9,8 @@ Password: `postmarketos`
 qemu-system-x86_64                                              \
 -nodefaults                                                     \
 -nographic                                                      \
--M pc                                                           \
--m 2g                                                           \
+-M q35                                                          \
+-m 8192M                                                        \
 -smp 4                                                          \
 -kernel boot/vmlinuz-edge                                       \
 -initrd boot/initramfs                                          \
