@@ -23,8 +23,8 @@ jobs:
       run: sudo apt update ; sudo apt -y install python-is-python3 python3-pip
     - name: Install pmbootstrap 
       run: git clone https://gitlab.com/postmarketOS/pmbootstrap.git -b 2.3.0 pmbs && sudo ln -s "$(pwd)/pmbs/pmbootstrap.py" /usr/bin/pmbootstrap 
-    # - name: Create work directory
-    #   run: mkdir -p /home/runner/.local/var/pmbootstrap
+    - name: Create work directory
+      run: mkdir -p /home/runner/.local/var/pmbootstrap
     - name: Init pmbootstrap
       run: pmbootstrap --details-to-stdout -c configs/pmbootstrap.${{ matrix.arch }}.cfg -y -p pmbootstrap/cache_git/pmaports/ init
     - name: Update pmbootstrap
