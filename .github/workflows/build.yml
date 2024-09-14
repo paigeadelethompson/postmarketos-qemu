@@ -26,7 +26,7 @@ jobs:
     # - name: Create work directory
     #   run: mkdir -p /home/runner/.local/var/pmbootstrap
     - name: Init pmbootstrap
-      run: pmbootstrap  -c configs/pmbootstrap.${{ matrix.arch }}.cfg -y -p pmbootstrap/cache_git/pmaports/ init
+      run: pmbootstrap --details-to-stdout -c configs/pmbootstrap.${{ matrix.arch }}.cfg -y -p pmbootstrap/cache_git/pmaports/ init
     - name: Update pmbootstrap
       run: pmbootstrap -c configs/pmbootstrap.${{ matrix.arch }}.cfg -y -p pmbootstrap/cache_git/pmaports/ pull
     - name: pmbootstrap install
