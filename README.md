@@ -1,5 +1,5 @@
 # Moved 
-https://github.com/paigeadelethompson/PostmarketOS-Lomiri-Images/tree/main
+https://github.com/paigeadelethompson/PostmarketOS-Lomiri-Images/
 
 # PostmarketOS for QEMU 
 
